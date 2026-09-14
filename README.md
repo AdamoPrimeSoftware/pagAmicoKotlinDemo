@@ -28,4 +28,4 @@ Pacchetto installabile Windows:
 ./gradlew :pagamico-desktop:packageExe
 ```
 
-Richiede JDK 17.
+Richiede JDK 17 aggiornato: versioni verificate e impostazione del JDK di Gradle nel README di **pagAmico_Kotlin_Lib**.
