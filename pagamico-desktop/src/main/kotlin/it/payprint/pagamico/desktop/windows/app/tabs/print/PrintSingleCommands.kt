@@ -1,6 +1,8 @@
 package it.payprint.pagamico.desktop.windows.app.tabs.print
 
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
