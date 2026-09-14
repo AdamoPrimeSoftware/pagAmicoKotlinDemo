@@ -33,7 +33,7 @@ class BenchState(private val scope: CoroutineScope) {
 
     var host by mutableStateOf("127.0.0.1")
     var port by mutableStateOf("9100")
-    var terminator by mutableStateOf("")
+    var terminator by mutableStateOf("\\r")
     var password by mutableStateOf("")
 
     var connected by mutableStateOf(false)
