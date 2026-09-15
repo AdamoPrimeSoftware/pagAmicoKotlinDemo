@@ -22,6 +22,9 @@ compose.desktop {
         mainClass = "it.payprint.pagamico.desktop.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Exe)
+            // i primi due li suggerisce suggestRuntimeModules; jdk.net no, perche' la libreria lo
+            // legge per riflessione: senza, il banco installato non regola il keepalive TCP
+            modules("java.instrument", "jdk.unsupported", "jdk.net")
             packageName = "pagAmico Test Bench"
             packageVersion = "1.0.0"
         }
