@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import it.payprint.pagamico.desktop.state.BenchState
+import it.payprint.pagamico.desktop.utils.eur
 import it.payprint.pagamico.desktop.utils.toDecimal
 import it.payprint.pagamico.desktop.utils.toIntOr
 import it.payprint.pagamico.desktop.windows.app.common.QuantityRow
@@ -25,7 +26,10 @@ fun CollectTab(bench: BenchState) {
     val coins = remember { mutableStateOf(listOf("0", "0", "0", "0", "0", "0")) }
 
     val onPartial: (PagAmicoResponse) -> Unit = { p ->
-        bench.info("parziale: incassato ${p.collectedAmount} (monete ${p.collectedCoins}, banconote ${p.collectedBanknotes}), da incassare ${p.amountToCollect}")
+        bench.info(
+            "parziale: incassato ${p.collectedAmount.eur()} (monete ${p.collectedCoins.eur()}, " +
+                "banconote ${p.collectedBanknotes.eur()}), da incassare ${p.amountToCollect.eur()}"
+        )
     }
 
     Column {

@@ -9,6 +9,7 @@ import it.payprint.pagamico.client.PagAmicoErrorCodes
 import it.payprint.pagamico.exceptions.PagAmicoException
 import it.payprint.pagamico.client.PagAmicoFileLogger
 import it.payprint.pagamico.desktop.utils.IMMAGINE_GRANDE
+import it.payprint.pagamico.desktop.utils.eur
 import it.payprint.pagamico.desktop.utils.prefixOf
 import it.payprint.pagamico.response.PagAmicoResponse
 import kotlinx.coroutines.CoroutineScope
@@ -216,16 +217,16 @@ class BenchState(private val scope: CoroutineScope) {
 
     fun summarize(r: PagAmicoResponse) {
         val parts = mutableListOf("response=${r.response}")
-        r.collectedAmount?.takeIf { it.signum() > 0 }?.let { parts += "incassato=$it" }
-        r.changeCoins?.takeIf { it.signum() > 0 }?.let { parts += "restoMonete=$it" }
-        r.changeBanknotes?.takeIf { it.signum() > 0 }?.let { parts += "restoBanconote=$it" }
-        r.amountUnpaid?.takeIf { it.signum() > 0 }?.let { parts += "NON EROGATO=$it" }
-        r.changeReturn?.takeIf { it.signum() > 0 }?.let { parts += "restituito=$it" }
+        r.collectedAmount?.takeIf { it.signum() > 0 }?.let { parts += "incassato=${it.eur()}" }
+        r.changeCoins?.takeIf { it.signum() > 0 }?.let { parts += "restoMonete=${it.eur()}" }
+        r.changeBanknotes?.takeIf { it.signum() > 0 }?.let { parts += "restoBanconote=${it.eur()}" }
+        r.amountUnpaid?.takeIf { it.signum() > 0 }?.let { parts += "NON EROGATO=${it.eur()}" }
+        r.changeReturn?.takeIf { it.signum() > 0 }?.let { parts += "restituito=${it.eur()}" }
         // esito di un CM: l'importo trattenuto e' collectedAmount, committedAmount e' solo il controllo
         if (r.response == "CM" && r.errorCode != "OK" && r.errorCode != "NO") {
-            parts += "trattenuto=${r.collectedAmount} (controllo committedAmount=${r.committedAmount})"
+            parts += "trattenuto=${r.collectedAmount.eur()} (controllo committedAmount=${r.committedAmount.eur()})"
         }
-        r.amountBanknotesInBta?.takeIf { it.signum() > 0 }?.let { parts += "inBTA=$it" }
+        r.amountBanknotesInBta?.takeIf { it.signum() > 0 }?.let { parts += "inBTA=${it.eur()}" }
         r.noteCollectedBta?.takeIf { it > 0 }?.let { parts += "noteCollectedBTA=$it" }
         r.id?.let { parts += "Id=$it" }
         r.errorCode?.takeIf { it.isNotEmpty() }?.let { parts += "errorCode=$it (${PagAmicoErrorCodes.describe(it)})" }
