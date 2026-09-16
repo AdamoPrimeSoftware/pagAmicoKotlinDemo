@@ -147,13 +147,6 @@ class BenchState(private val scope: CoroutineScope) {
         statusText = "disconnesso"
     }
 
-    /** Annulla l'operazione in corso lato client: il client invia [ AN] alla macchina. */
-    @Suppress("unused")
-    fun cancelCurrent() {
-        currentJob?.cancel()
-        info("operazione annullata dal client (invio AN)")
-    }
-
     // ---------------------------------------------------------------- esecuzione
 
     fun exec(what: String, body: suspend (PagAmicoClient) -> Unit) {
